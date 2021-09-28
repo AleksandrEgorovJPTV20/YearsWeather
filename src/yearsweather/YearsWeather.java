@@ -1,130 +1,89 @@
-
 package yearsweather;
 
-import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class YearsWeather {
     static enum Month{
-        January, February, March, April, May, June, July, August, September, October, November, December
+        Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь
     }
-    
     public static void main(String[] args) {
-        // min и max
+        //Создаем min и max, переменные минимальной и максимальной температуры
         int min=-30, max=30;
-        //Зубчатый массив из 12 строк
+        //Создаем зубчатый массив из 12 строк
         int[][] dayTempYear = new int[12][];
-//        dayTempYear[0] = new int[31]; //January
-//        dayTempYear[1] = new int[28]; //February
-//        dayTempYear[2] = new int[31]; //March
-//        dayTempYear[3] = new int[30]; //April
-//        dayTempYear[4] = new int[31]; //May
-//        dayTempYear[5] = new int[30]; //June
-//        dayTempYear[6] = new int[31]; //July
-//        dayTempYear[7] = new int[31]; //August
-//        dayTempYear[8] = new int[30]; //September
-//        dayTempYear[9] = new int[31]; //October
-//        dayTempYear[10] = new int[30]; //November
-//        dayTempYear[11] = new int[31]; //December
+        //Заполняем массив (Кол-вом дней в каждом месяце)
         Random random = new Random();
-        for(int i=0;i<dayTempYear.length;i++){
-            int n = 0;
-            switch(i){                  
-                case 2:min = -5; max = 15; n = 31; break;
-                case 3:min = -5; max = 15; n = 30; break;
-                case 4:min = -5; max = 15; n = 31; break;
-                case 5:min = 5; max = 30; n = 30; break;
-                case 6:min = 5; max = 30; n = 31; break;
-                case 7:min = 5; max = 30; n = 31; break;
-                case 8:min = -10; max = 10; n = 30; break;
-                case 9:min = -10; max = 10; n = 31; break;
-                case 10:min = -10; max = 10; n = 30; break;
-                case 11:min = -30; max = 0; n = 31; break;
-                case 0:min = -30; max = 0; n = 31; break;
-                case 1:min = -30; max = 0; n = 28; break; 
+        for(int i = 0; i < dayTempYear.length; i++) {
+            int n = 0; //Переменная, хранящая данные об кол-во дней в месяце
+            switch(i) {
+                case 2: min = -5; max = 15;n = 31;break; // Март
+                case 3: min = -5; max = 15;n = 30;break; // Апрель
+                case 4: min = -5; max = 15;n = 31;break; // Май
+                case 5: min = 5;  max = 30;n = 30;break; // Июнь
+                case 6: min = 5;  max = 30;n = 31;break; // Июль
+                case 7: min = 5;  max = 30;n = 31;break; // Август
+                case 8: min = -10;max = 10;n = 30;break; // Сентябрь
+                case 9: min = -10;max = 10;n = 31;break; // Октябрь
+                case 10:min = -10;max = 10;n = 30;break; // Ноябрь
+                case 11:min = -30;max = 0; n = 31;break; // Декабрь
+                case 0: min = -30;max = 0; n = 31;break; // Январь
+                case 1: min = -30;max = 0; n = 28;break; // Февраль
             }
+            //Цикл,к каждому дню месяца даём случайное значение температуры,  пока в каждом дне месяца не будет температура.
             dayTempYear[i] = new int[n];
-            for(int j = 0;j<dayTempYear[i].length;j++){
-                dayTempYear[i][j] = random.nextInt(max-min+1)+min;   
+            for(int j = 0;j < dayTempYear[i].length; j++) {
+                dayTempYear[i][j] = random.nextInt(max - min + 1)+min; // Массив заполняется случайными значениеми температуры для дней в месяце
             }
         }
-//            for(int j=0; j < dayTempYear[i].length;j++){
-//                if(i==11 || i == 0 || i == 1){
-//                    min = -30;
-//                    max = 0;
-//                }else if (i==2 || i == 3 || i == 4){
-//                    min = -5;
-//                    max = 15;
-//                }else if (i==5 || i == 6 || i == 7) {
-//                    min = 5;
-//                    max = 30;
-//                }else if (i==8 || i == 9 || i == 10){
-//                    min = -10;
-//                    max = 10;
-//                }
-//                dayTempYear[i][j] = random.nextInt(max-min+1)+min;
-//                
-//            }            
-//        for(int i=0;i<dayTempYear.length;i++){
-//            System.out.println(Arrays.toString(dayTempYear[i]));
-        for(int i=0;i<dayTempYear.length;i++){
-            System.out.printf("%-8s: ",Month.values()[i]);
-            for(int j=0; j < dayTempYear[i].length;j++){         
-                System.out.printf("%4d", dayTempYear[i][j]);
+         //Циклы вывода месяца и температуры каждого дня в каждом месяце. Не выведится на экран полностью.
+        for(int i = 0; i < dayTempYear.length; i++) {
+            System.out.printf("%8s:",Month.values()[i]); //Выводит название месяца по индексу из списка enum month
+            for(int j = 0; j < dayTempYear[i].length; j++) {
+                System.out.printf("%4d", dayTempYear[i][j]); //Вывод температуры каждого дня в месяце
             }
             System.out.println();
         }
-        double[] averageMonthTemp = new double[12];
-        for(int i = 0;i<dayTempYear.length;i++){
-            int daysMonth = 0;
-            for(int j=0; j < dayTempYear[i].length;j++){
-                averageMonthTemp[i] += (double)dayTempYear[i][j];
-                daysMonth = j+1;
+        //Средняя арифметическая каждого месяца
+        double[] averageTempMonth = new double[12]; //Создали массив для средней температуры
+        for(int i = 0; i < dayTempYear.length; i++) { //Цикл работает пока массив не заполнится средней температурой.
+            int daysInMonth=0; //Переменная дней месяцев
+            for(int j = 0; j < dayTempYear[i].length; j++) {
+                averageTempMonth[i] += (double)dayTempYear[i][j]; // Температура всех дней месяца в массиве складывается, пока дни не закончится.
+                daysInMonth=j+1; 
             }
-            averageMonthTemp[i]=averageMonthTemp[i]/daysMonth;
+            averageTempMonth[i] = averageTempMonth[i]/daysInMonth; //Сумму температуры всех дней месяца делим на кол-во дней месяца.
         }
-        System.out.println("\nAverage Temperature by months: ");
-        for (int i=0;i<averageMonthTemp.length;i++){
-            System.out.printf("%-8s: %-4.2f%n", Month.values()[i], averageMonthTemp[i]);
-//            switch(i) {
-//                case 0:
-//                    System.out.printf("January: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 1:
-//                    System.out.printf("February: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 2:
-//                    System.out.printf("March: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 3:
-//                    System.out.printf("April: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 4:
-//                    System.out.printf("May: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 5:
-//                    System.out.printf("June: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 6:
-//                    System.out.printf("July: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 7:
-//                    System.out.printf("August: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 8:
-//                    System.out.printf("September: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 9:
-//                    System.out.printf("October: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 10:
-//                    System.out.printf("November: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//                case 11:
-//                    System.out.printf("December: %-4.2f%n",averageMonthTemp[i]);
-//                    break;
-//            }
+        System.out.println("\nСредняя температура по месяцам: ");
+        for(int i = 0; i < averageTempMonth.length; i++) {
+            System.out.printf("%8s: %-4.2f%n",Month.values()[i], averageTempMonth[i]); //Вывод средней температуры месяцев
         }
+        //Погода по дате. День и Месяц.
+        //String массив строк с месяцами 0-11 индекс.
+        String[] months = {"января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"};
+        System.out.print("\nВведите день: "); //Вводим число дня месяца
+        Scanner scanner = new Scanner(System.in);
+        int day = scanner.nextInt();
+        System.out.print("Число месяца: ");
+        int month = scanner.nextInt(); //Вводим индекс месяца 0-11
+        System.out.println(day + " " + months[month-1] + " погода составляла " + dayTempYear[month-1][day-1] + " °C");
+        
+        //Теплая и холодная температура
+        int maxTemp = 0;
+        int minTemp = 0;
+        int ind = 0;
+        //Цикл ищёт в массиве наибольшую температуру и наименьшую температуру в массиве dayTempYear
+        for(int i = 0; i < dayTempYear.length; i++) {
+            for(int j = 0; j < dayTempYear[i].length; j++) {
+                if(dayTempYear[i][j] > maxTemp) {
+                    maxTemp = dayTempYear[i][j];
+                    ind = j;
+                }
+                if(dayTempYear[i][j] < minTemp) {
+                    minTemp = dayTempYear[i][j];
+                }
+            }
+        }
+        System.out.println("Максимальная температура: " + maxTemp + " °C" + "\nМинимальная температура: " + minTemp + " °C");
     }
-    
 }
