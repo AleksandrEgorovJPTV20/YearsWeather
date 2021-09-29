@@ -71,19 +71,26 @@ public class YearsWeather {
         //Теплая и холодная температура
         int maxTemp = 0;
         int minTemp = 0;
-        int ind = 0;
+        int maxDayTemp = 0 ;
+        int monthMaxTemp = 0;
+        int minDayTemp = 0;
+        int minMonthTemp = 0;
         //Цикл ищёт в массиве наибольшую температуру и наименьшую температуру в массиве dayTempYear
         for(int i = 0; i < dayTempYear.length; i++) {
             for(int j = 0; j < dayTempYear[i].length; j++) {
-                if(dayTempYear[i][j] > maxTemp) {
-                    maxTemp = dayTempYear[i][j];
-                    ind = j;
+                if(dayTempYear[i][j] > maxTemp) { //Если DayTempYear > maxTemp то работает цикл
+                    maxTemp = dayTempYear[i][j]; //Индекс i месяц, j день
+                    monthMaxTemp = i;
+                    maxDayTemp = j;
                 }
                 if(dayTempYear[i][j] < minTemp) {
                     minTemp = dayTempYear[i][j];
+                    minDayTemp = j; 
+                    minMonthTemp = i;
                 }
             }
         }
-        System.out.println("Максимальная температура: " + maxTemp + " °C" + "\nМинимальная температура: " + minTemp + " °C");
+        System.out.println("Максимальная температура: " + maxTemp + " °C"+ " была она " + maxDayTemp + " " + months[monthMaxTemp]);
+        System.out.println("Минимальная температура: " + minTemp + " °C" + " была она " + minDayTemp + " " + months[minMonthTemp]);
     }
 }
